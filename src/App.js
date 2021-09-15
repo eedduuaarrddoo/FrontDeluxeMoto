@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import { Admin, Resource } from "react-admin";
+import jsonServerProvider from "ra-data-json-server";
+import { vendedorCreate, vendedorEdit, vendedorList } from "./vendedor";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { CarroCreate, CarroEdit, CarroList } from "./carro";
 
+import { ClienteCreate, ClienteEdit, ClientelList } from "./cliente";
+
+const dataProvider = jsonServerProvider("http://localhost:8080/");
+
+const App = () => (
+  <Admin dataProvider={dataProvider}>
+    <Resource
+      name="vendedor"
+      list={vendedorList}
+      create={vendedorCreate}
+      edit={vendedorEdit}
+    />
+    <Resource
+      name="carro"
+      list={CarroList}
+      create={CarroCreate}
+      edit={CarroEdit}
+    />
+    <Resource
+      name="cliente"
+      list={ClientelList}
+      create={ClienteCreate}
+      edit={ClienteEdit}
+    />
+  </Admin>
+);
 export default App;
